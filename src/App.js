@@ -1,10 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/Header/header";
 
 function App() {
   return (
     <div className="App">
-      <h1>This is second project</h1>
+      <Header />
     </div>
   );
 }

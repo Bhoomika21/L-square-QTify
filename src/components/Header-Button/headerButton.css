@@ -1,0 +1,13 @@
+.blackbtn{
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.25px;
+    text-align: center;
+    background-color: #121212;
+    padding: 13px 20px;
+    border-radius: 12px;
+    color: #34C94B;
+}
+.blackbtn:hover{
+    color: #fff;
+}
