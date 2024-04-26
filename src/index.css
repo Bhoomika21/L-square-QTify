@@ -23,6 +23,7 @@ button{
   padding-block: 0;
   cursor: pointer;  
   transition: all 0.3s;
+  font-family: Poppins;
 }
 a{
   display: inline-block;
