@@ -1,6 +1,6 @@
 .banner_wrap{
     background-color: #121212;
-    padding: 20px;
+    padding: 20px 20px 100px;
 }
 .banner_wrap .container{
     display: flex;

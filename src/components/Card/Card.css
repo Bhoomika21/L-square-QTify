@@ -1,0 +1,53 @@
+.single_card .img_div {
+  border-radius: 10px;
+  background-color: #fff;
+  padding-bottom: 5px;
+  overflow: hidden;
+}
+.single_card .img_div img {
+  width: 100%;
+  display: block;
+  height: 170px;
+  object-fit: cover;
+}
+.single_card .img_div .followers_div {
+  margin: 5px 10px;
+}
+.single_card .img_div .followers_div span {
+  padding: 4px 8px;
+  border-radius: 14px;
+  background-color: #121212;
+}
+.heading_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 0 18px;
+}
+.swiper-horizontal > .swiper-scrollbar,
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+  display: none;
+}
+.showall_btn {
+  color: #34c94b;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  text-align: right;
+}
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 40px; */
+}
+.grid-container .grid-item {
+  width: calc(100% / 7);
+  padding-right: 40px;
+  padding-bottom: 15px;
+}
+.grid-container .grid-item:nth-child(7n) {
+  padding-right: 0;
+}
+.img_div a{
+  width: 100%;
+}
