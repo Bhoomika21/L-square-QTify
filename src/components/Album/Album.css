@@ -26,3 +26,7 @@
 .album_wrapper .category {
   margin-top: 10px;
 }
+.album_wrapper .swiper.swiper-horizontal {
+  border-bottom: 1px solid #34C94B;
+  padding-bottom: 10px;
+}

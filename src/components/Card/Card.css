@@ -51,3 +51,15 @@
 .img_div a{
   width: 100%;
 }
+.tabHeading button{
+font-size: 16px;
+font-weight: 600;
+color: #fff;
+margin-right: 28px;
+}
+.tabHeading {
+  margin-bottom: 33px;
+}
+.tabHeading button.active{
+  border-bottom: 4px solid #34C94B;
+}

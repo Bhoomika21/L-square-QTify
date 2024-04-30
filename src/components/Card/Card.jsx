@@ -13,29 +13,62 @@ import 'swiper/css/scrollbar';
 export default function Card(props) {
     const [cards, setCards] = useState([])
     const [gridView, setGridView] = useState(false);
+    const [genres, setGenres] = useState([]);
+    const [selectedGenre, setSelectedGenre] = useState("");
 
     useEffect (() => {
         axios
         .get(props.apiCall)
         .then(data => {
             // console.log(data.data);
-            console.log(data.data[0].follows, data.data[0].image, data.data[0].title);
+            // console.log(data.data[0].follows, data.data[0].image, data.data[0].title);
             setCards(data.data);
             return (data.data)
         })
         .catch(e => console.log(e));
     }, []);
 
+    useEffect(() => {
+        axios.get('https://qtify-backend-labs.crio.do/genres')
+        .then(data => {
+            setGenres(data.data.data)
+            return (data.data.data)
+        })
+        .catch(e => console.log(e))
+    }, []);
+
     function viewDisplay(){
         setGridView(!gridView);
     }
+
+    const selectGenre = (genre) => {
+        setSelectedGenre(genre)
+    }
+    
 
     return(
         <>
             <div className="heading_div">
                 <h2 className="album_name">{props.albumName}</h2>
-                <button className="showall_btn" onClick={viewDisplay}>{gridView ? 'Collapse' : 'Show all'}</button>
+                {props.filterSongs === "false" && 
+                    <button className="showall_btn" onClick={viewDisplay}>{gridView ? 'Collapse' : 'Show all'}</button>
+                }
             </div>
+
+            {props.filterSongs === "true" && (
+                <div className="tabHeading">
+                    <button className={selectedGenre === "" ? "active" : ""} onClick={() => selectGenre("")}>All</button>
+                    {genres.map(genre => (
+                        <button 
+                        key={genre.label}
+                        onClick={() => selectGenre(genre.label)}
+                        className={selectedGenre === genre.label ? "active" : ""}
+                        >
+                            {genre.label}
+                        </button>
+                    ))}
+                </div>
+            )}
 
             { gridView ? (
                 <div className="grid-container">
@@ -45,7 +78,7 @@ export default function Card(props) {
                             <div className="img_div">
                                 <a href={`https://qtify-backend-labs.crio.do/album/filthy-secretary/${card.slug}`}>
                                     <img key={card.id} src={card.image} alt="Card"/>
-                                </a>
+                                </a>                                
                                 <p className="followers_div">
                                     <span>{card.follows} Followers</span>
                                 </p>
@@ -55,7 +88,7 @@ export default function Card(props) {
                         </div>
                     ))}
                 </div>
-            ) : (
+            ) : (                
                 <Swiper
                 modules={[Navigation, A11y]}
                 spaceBetween={40}
@@ -63,16 +96,24 @@ export default function Card(props) {
                 navigation
                 scrollbar={{ draggable: true }}
                 >
-                    {cards.map((card) => (
+                    {cards
+                    .filter(card => selectedGenre === "" || card.genre.label === selectedGenre)
+                    .map((card) => (
                         <SwiperSlide>
                             <div className="single_card">
                                 <div className="img_div">
                                     <a href={`https://qtify-backend-labs.crio.do/album/${card.slug}`}>
                                         <img key={card.id} src={card.image} alt="Card"/>
                                     </a>
-                                    <p className="followers_div">
-                                        <span>{card.follows} Followers</span>
-                                    </p>
+                                    {props.filterSongs === "false" ? 
+                                        (<p className="followers_div">
+                                            <span>{card.follows} Followers</span>
+                                        </p>) : (
+                                        <p className="followers_div">
+                                            <span>{card.likes} likes</span>
+                                            {/* <span>{card.genre.label}</span> */}
+                                        </p>
+                                    )}
                                 </div>
                                 <p className="category">{card.title}</p>
                             </div>
