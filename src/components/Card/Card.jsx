@@ -15,6 +15,8 @@ export default function Card(props) {
     const [gridView, setGridView] = useState(false);
     const [genres, setGenres] = useState([]);
     const [selectedGenre, setSelectedGenre] = useState("");
+    const [toolTip, setToolTip] = useState("");
+    
 
     useEffect (() => {
         axios
@@ -27,6 +29,24 @@ export default function Card(props) {
         })
         .catch(e => console.log(e));
     }, []);
+
+    const handleMouseOver = (index) => {
+        // Update the tooltip state for the corresponding card
+        setToolTip(prevState => {
+            const newState = [...prevState];
+            newState[index] = true;
+            return newState;
+        });
+    }
+
+    const handleMouseOut = (index) => {
+        // Update the tooltip state for the corresponding card
+        setToolTip(prevState => {
+            const newState = [...prevState];
+            newState[index] = false;
+            return newState;
+        });
+    }
 
     useEffect(() => {
         axios.get('https://qtify-backend-labs.crio.do/genres')
@@ -45,7 +65,6 @@ export default function Card(props) {
         setSelectedGenre(genre)
     }
     
-
     return(
         <>
             <div className="heading_div">
@@ -98,9 +117,17 @@ export default function Card(props) {
                 >
                     {cards
                     .filter(card => selectedGenre === "" || card.genre.label === selectedGenre)
-                    .map((card) => (
+                    .map((card, index) => (
                         <SwiperSlide>
-                            <div className="single_card">
+                            <div className={`single_card`}
+                            // onMouseOver={toolTipShow}
+                            onMouseOver={() => handleMouseOver(index)}
+                            onMouseOut={() => handleMouseOut(index)}
+                            >
+                                {toolTip[index] && 
+                                <div className="tooltip"> {/* Show tooltip only if corresponding state is true */}
+                                    {card.songs && card.songs.length}
+                                </div>}
                                 <div className="img_div">
                                     <a href={`https://qtify-backend-labs.crio.do/album/${card.slug}`}>
                                         <img key={card.id} src={card.image} alt="Card"/>

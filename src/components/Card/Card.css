@@ -63,3 +63,18 @@ margin-right: 28px;
 .tabHeading button.active{
   border-bottom: 4px solid #34C94B;
 }
+.tooltip {
+  position: absolute;
+  width: 70%;
+  margin: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: -30px;
+  background: grey;
+  border-radius: 7px
+}
+
+.single_card {
+  position: relative;
+}
